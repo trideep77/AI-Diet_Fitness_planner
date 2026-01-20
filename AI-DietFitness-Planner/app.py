@@ -100,7 +100,7 @@ with col1:
         with st.spinner("Generating personalized fitness and diet plans..."):
             try:
                 # Generate and store the new plan
-                response = plan_chain.run({
+                response = plan_chain.invoke({
                     "workout_type": workout_type,
                     "diet_type": diet_type,
                     "current_weight": current_weight,
@@ -145,7 +145,7 @@ if "plan" in st.session_state and st.session_state.plan:
 
         # Get the assistant's response
         try:
-            answer = chat_chain.run({"plan": st.session_state.plan, "question": prompt})
+            answer = chat_chain.invoke({"plan": st.session_state.plan, "question": prompt})
         except Exception as e:
             answer = f"An error occurred: {e}"
 
