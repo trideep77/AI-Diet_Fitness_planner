@@ -1,6 +1,6 @@
 import streamlit as st
 from langchain_groq import ChatGroq
-from langchain.chains import LLMChain
+from langchain_core.output_parsers import StrOutputParser
 from langchain_core.prompts import PromptTemplate
 from dotenv import load_dotenv
 import os
@@ -67,8 +67,9 @@ chat_prompt = PromptTemplate(
 )
 
 # Set up the chains
-plan_chain = LLMChain(llm=langchain_llm, prompt=plan_prompt)
-chat_chain = LLMChain(llm=langchain_llm, prompt=chat_prompt)
+plan_chain = plan_prompt | langchain_llm | StrOutputParser()
+chat_chain = chat_prompt | langchain_llm | StrOutputParser()
+
 
 
 st.set_page_config(page_title="🧘‍♀️ Fitness and Diet Planner", layout="wide")
